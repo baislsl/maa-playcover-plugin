@@ -1,0 +1,291 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D10000000000000000000001 /* MaaPluginEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000001 /* MaaPluginEntry.swift */; };
+		D10000000000000000000002 /* AKInterfaceShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000002 /* AKInterfaceShim.swift */; };
+		D10000000000000000000003 /* PlaySettingsShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000003 /* PlaySettingsShim.swift */; };
+		D10000000000000000000004 /* PlayInputShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000004 /* PlayInputShim.swift */; };
+		D10000000000000000000005 /* ToucherShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000005 /* ToucherShim.swift */; };
+		D10000000000000000000006 /* MaaPluginDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000006 /* MaaPluginDebug.swift */; };
+		D10000000000000000000007 /* MaaTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000007 /* MaaTools.swift */; };
+		D10000000000000000000008 /* MetalCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000008 /* MetalCapture.swift */; };
+		D10000000000000000000009 /* ArknightsMetalCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000009 /* ArknightsMetalCapture.swift */; };
+		D1000000000000000000000A /* MetalCaptureHook.m in Sources */ = {isa = PBXBuildFile; fileRef = D2000000000000000000000A /* MetalCaptureHook.m */; };
+		D1000000000000000000000B /* PluginBootstrap.m in Sources */ = {isa = PBXBuildFile; fileRef = D2000000000000000000000B /* PluginBootstrap.m */; };
+		D10000000000000000000385 /* ScreenCaptureKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D20000000000000000000385 /* ScreenCaptureKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D20000000000000000000001 /* MaaPluginEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaaPluginEntry.swift; sourceTree = "<group>"; };
+		D20000000000000000000002 /* AKInterfaceShim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKInterfaceShim.swift; sourceTree = "<group>"; };
+		D20000000000000000000003 /* PlaySettingsShim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySettingsShim.swift; sourceTree = "<group>"; };
+		D20000000000000000000004 /* PlayInputShim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayInputShim.swift; sourceTree = "<group>"; };
+		D20000000000000000000005 /* ToucherShim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToucherShim.swift; sourceTree = "<group>"; };
+		D20000000000000000000006 /* MaaPluginDebug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaaPluginDebug.swift; sourceTree = "<group>"; };
+		D20000000000000000000007 /* MaaTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaaTools.swift; sourceTree = "<group>"; };
+		D20000000000000000000008 /* MetalCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalCapture.swift; sourceTree = "<group>"; };
+		D20000000000000000000009 /* ArknightsMetalCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArknightsMetalCapture.swift; sourceTree = "<group>"; };
+		D2000000000000000000000A /* MetalCaptureHook.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MetalCaptureHook.m; sourceTree = "<group>"; };
+		D2000000000000000000000B /* PluginBootstrap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PluginBootstrap.m; sourceTree = "<group>"; };
+		D2000000000000000000000C /* MaaPlugin-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MaaPlugin-Bridging-Header.h"; sourceTree = "<group>"; };
+		D2000000000000000000000D /* MetalCaptureHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalCaptureHook.h; sourceTree = "<group>"; };
+		D20000000000000000000384 /* MaaPlugin.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = MaaPlugin.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		D20000000000000000000385 /* ScreenCaptureKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScreenCaptureKit.framework; path = System/Library/Frameworks/ScreenCaptureKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D40000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D10000000000000000000385 /* ScreenCaptureKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7EA17142309A303600554D7D /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				D20000000000000000000385 /* ScreenCaptureKit.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		D30000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				D30000000000000000000002 /* Sources/MaaPlugin */,
+				D30000000000000000000005,
+				7EA17142309A303600554D7D /* Recovered References */,
+			);
+			sourceTree = "<group>";
+		};
+		D30000000000000000000002 /* Sources/MaaPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				D20000000000000000000001 /* MaaPluginEntry.swift */,
+				D30000000000000000000003 /* Shim */,
+				D30000000000000000000004 /* Hguandl */,
+				D2000000000000000000000B /* PluginBootstrap.m */,
+				D2000000000000000000000C /* MaaPlugin-Bridging-Header.h */,
+			);
+			path = Sources/MaaPlugin;
+			sourceTree = "<group>";
+		};
+		D30000000000000000000003 /* Shim */ = {
+			isa = PBXGroup;
+			children = (
+				D20000000000000000000002 /* AKInterfaceShim.swift */,
+				D20000000000000000000003 /* PlaySettingsShim.swift */,
+				D20000000000000000000004 /* PlayInputShim.swift */,
+				D20000000000000000000005 /* ToucherShim.swift */,
+				D20000000000000000000006 /* MaaPluginDebug.swift */,
+			);
+			path = Shim;
+			sourceTree = "<group>";
+		};
+		D30000000000000000000004 /* Hguandl */ = {
+			isa = PBXGroup;
+			children = (
+				D20000000000000000000007 /* MaaTools.swift */,
+				D20000000000000000000008 /* MetalCapture.swift */,
+				D20000000000000000000009 /* ArknightsMetalCapture.swift */,
+				D2000000000000000000000A /* MetalCaptureHook.m */,
+				D2000000000000000000000D /* MetalCaptureHook.h */,
+			);
+			path = Hguandl;
+			sourceTree = "<group>";
+		};
+		D30000000000000000000005 = {
+			isa = PBXGroup;
+			children = (
+				D20000000000000000000384 /* MaaPlugin.dylib */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D50000000000000000000001 /* MaaPlugin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D80000000000000000000002 /* Build configuration list for PBXNativeTarget "MaaPlugin" */;
+			buildPhases = (
+				D40000000000000000000001 /* Sources */,
+				D40000000000000000000002 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MaaPlugin;
+			productName = MaaPlugin;
+			productReference = D20000000000000000000384 /* MaaPlugin.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D60000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					D50000000000000000000001 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = D80000000000000000000001 /* Build configuration list for PBXProject "MaaPlugin" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D30000000000000000000001;
+			productRefGroup = D30000000000000000000005;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D50000000000000000000001 /* MaaPlugin */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D40000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D10000000000000000000001 /* MaaPluginEntry.swift in Sources */,
+				D10000000000000000000002 /* AKInterfaceShim.swift in Sources */,
+				D10000000000000000000003 /* PlaySettingsShim.swift in Sources */,
+				D10000000000000000000004 /* PlayInputShim.swift in Sources */,
+				D10000000000000000000005 /* ToucherShim.swift in Sources */,
+				D10000000000000000000006 /* MaaPluginDebug.swift in Sources */,
+				D10000000000000000000007 /* MaaTools.swift in Sources */,
+				D10000000000000000000008 /* MetalCapture.swift in Sources */,
+				D10000000000000000000009 /* ArknightsMetalCapture.swift in Sources */,
+				D1000000000000000000000A /* MetalCaptureHook.m in Sources */,
+				D1000000000000000000000B /* PluginBootstrap.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D70000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACCATALYST_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = maccatalyst;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		D70000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACCATALYST_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = maccatalyst;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		D70000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = .dylib;
+				GENERATE_INFOPLIST_FILE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACCATALYST_DEPLOYMENT_TARGET = 15.0;
+				MACH_O_TYPE = mh_dylib;
+				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.MaaPlugin;
+				PRODUCT_NAME = MaaPlugin;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator maccatalyst";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Sources/MaaPlugin/MaaPlugin-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		D70000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = .dylib;
+				GENERATE_INFOPLIST_FILE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACCATALYST_DEPLOYMENT_TARGET = 15.0;
+				MACH_O_TYPE = mh_dylib;
+				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.MaaPlugin;
+				PRODUCT_NAME = MaaPlugin;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator maccatalyst";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Sources/MaaPlugin/MaaPlugin-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D80000000000000000000001 /* Build configuration list for PBXProject "MaaPlugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D70000000000000000000001 /* Debug */,
+				D70000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D80000000000000000000002 /* Build configuration list for PBXNativeTarget "MaaPlugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D70000000000000000000003 /* Debug */,
+				D70000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D60000000000000000000001 /* Project object */;
+}

@@ -1,0 +1,55 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # MaaPlugin 是仓库根目录时保持 "."；
+  # 如果它位于子目录（例如 playcover/MaaPlugin），改成 "MaaPlugin"。
+  PROJECT_DIR: .
+
+jobs:
+  build:
+    name: Build MaaPlugin.dylib
+    runs-on: macos-15
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Toolchain
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          xcodebuild -version
+          xcrun --sdk macosx --show-sdk-version
+
+      - name: Build
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: ./build.sh
+
+      - name: Verify
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          P=build/MaaPlugin.dylib
+          lipo -info "$P"
+          vtool -show-build "$P" | grep -m1 -A2 "platform"
+          codesign -dv "$P" 2>&1 | grep Signature
+          test "$(nm -gU "$P" | grep -c MaaPluginStart)" -ge 1
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MaaPlugin
+          path: ${{ env.PROJECT_DIR }}/build/MaaPlugin.dylib
+          if-no-files-found: error
+          retention-days: 30
