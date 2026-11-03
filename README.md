@@ -62,16 +62,6 @@ cd MaaPlugin
 也可以用 Xcode 打开 `MaaPlugin.xcodeproj` 直接构建；推送到 `main` 时 GitHub Actions 会自动构建并
 上传 `MaaPlugin.dylib` artifact。详见 [docs/build.md](docs/build.md)。
 
-## 重要声明
-
-- **License：AGPL-3.0**（协议与抓图代码来自 PlayTools），见 [LICENSE](LICENSE)。
-- **必须已注入 PlayTools**：PlayCover 运行游戏本身就依赖它，插件只借用其触摸注入能力。
-- **监听所有网卡**：服务用 `NWListener(using: .tcp, on: port)`（上游原实现），只在本机使用时请自行
-  用防火墙限制。
-- **日志默认关闭**：只有设置 `MAATOOLS_DEBUG=1` 才落盘（位置与用法见
-  [docs/troubleshooting.md](docs/troubleshooting.md)）。
-- **平台**：仅 macOS / Apple Silicon（Mac Catalyst，最低 15.0）；协议版本 v4。
-
 ## 文档
 
 | 文档 | 内容 |
@@ -81,3 +71,7 @@ cd MaaPlugin
 | [docs/build.md](docs/build.md) | build.sh / Xcode 两种构建方式、产物与验证 |
 | [docs/upstream-diff.md](docs/upstream-diff.md) | 与上游源码的对应关系、补丁内容、为何不直接链接 PlayTools |
 | [docs/troubleshooting.md](docs/troubleshooting.md) | 日志开关、常见现象与排查方法 |
+
+## 其他
+
+- **License：AGPL-3.0**（协议与抓图代码来自 PlayTools），见 [LICENSE](LICENSE)。

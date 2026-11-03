@@ -46,16 +46,26 @@ xcodebuild -project MaaPlugin.xcodeproj -scheme MaaPlugin \
 
 ## GitHub Actions
 
-`.github/workflows/build.yml` 在推送到 `main`（或手动 `workflow_dispatch`）时构建，并把
-`MaaPlugin.dylib` 作为 artifact 上传：
+`.github/workflows/build.yml`：
 
-- runner：`macos-15`（自带 Xcode 16 / Mac Catalyst 18 SDK）；
-- 步骤：checkout → `./build.sh` → 校验架构/平台/签名/导出符号 → `actions/upload-artifact@v4`；
+| 触发 | 行为 |
+| --- | --- |
+| push 到 `main` | 构建 + 上传 `MaaPlugin.dylib` artifact |
+| push 任意 tag | 同上，并创建 GitHub Release，附带 `MaaPlugin.dylib` |
+| 手动 `workflow_dispatch` | 同上（不发布） |
+
+- runner：`macos-26`（默认 Xcode 26.6，含 iOS 26 SDK / Mac Catalyst）；
+- 需要固定版本时给 workflow 顶部的 `XCODE_VERSION` 填 `"26.6"` 之类的值，会切到
+  `/Applications/Xcode_<版本>.app`；留空则用镜像默认；
+- 失败时把前 40 条 `error:` 写进 **运行摘要**（Actions 页面顶部），同时上传 `build-log` artifact；
 - artifact 名 `MaaPlugin`，内含 `MaaPlugin.dylib`，保留 30 天；
-- 同一分支的新提交会取消上一次未完成的构建（`concurrency`）。
+- 同一分支的新提交会取消未完成的构建（`concurrency`）。
 
-仓库根目录就是 MaaPlugin 时无需改动；如果它在子目录里，把 workflow 顶部的 `PROJECT_DIR` 改成该子目录名
-即可（`path` 与 `working-directory` 都引用它）。
+Release 由 `softprops/action-gh-release` 创建，自动生成 release notes；tag 名里带 `-`（如 `v1.0.0-beta.1`）
+会标记为 prerelease。
+
+仓库根目录就是 MaaPlugin 时无需改动；如果它在子目录里，把 `PROJECT_DIR` 改成该子目录名即可
+（`working-directory` 与 artifact `path` 都引用它）。
 
 ## 清理
 

@@ -3,10 +3,11 @@ name: build
 on:
   push:
     branches: [main]
+    tags: ["*"]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write   # 打 tag 时需要创建 Release
 
 concurrency:
   group: build-${{ github.ref }}
@@ -16,26 +17,47 @@ env:
   # MaaPlugin 是仓库根目录时保持 "."；
   # 如果它位于子目录（例如 playcover/MaaPlugin），改成 "MaaPlugin"。
   PROJECT_DIR: .
+  # 留空则用镜像默认 Xcode（macos-26 目前是 26.6）。
+  # 需要固定版本时填 "26.6" / "26.5" 等，对应 /Applications/Xcode_<版本>.app。
+  XCODE_VERSION: ""
 
 jobs:
   build:
     name: Build MaaPlugin.dylib
-    runs-on: macos-15
+    runs-on: macos-latest
     timeout-minutes: 20
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Select Xcode
+        if: env.XCODE_VERSION != ''
+        run: sudo xcode-select -s "/Applications/Xcode_${XCODE_VERSION}.app"
+
       - name: Toolchain
         working-directory: ${{ env.PROJECT_DIR }}
         run: |
           xcodebuild -version
+          swift --version
           xcrun --sdk macosx --show-sdk-version
 
       - name: Build
         working-directory: ${{ env.PROJECT_DIR }}
-        run: ./build.sh
+        run: |
+          set -o pipefail
+          if ./build.sh 2>&1 | tee build.log; then
+            exit 0
+          fi
+
+          # 失败时把真正的编译错误写进运行摘要，省得翻整份日志
+          {
+            echo "### Build errors"
+            echo '```'
+            grep -m 40 "error:" build.log || tail -60 build.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 1
 
       - name: Verify
         working-directory: ${{ env.PROJECT_DIR }}
@@ -53,3 +75,23 @@ jobs:
           path: ${{ env.PROJECT_DIR }}/build/MaaPlugin.dylib
           if-no-files-found: error
           retention-days: 30
+
+      - name: Upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: ${{ env.PROJECT_DIR }}/build.log
+          if-no-files-found: ignore
+          retention-days: 7
+
+      # 只有打 tag 时才发布 Release；推 main 只跑构建 + 上传 artifact
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.ref_name }}
+          files: ${{ env.PROJECT_DIR }}/build/MaaPlugin.dylib
+          generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          fail_on_unmatched_files: true
