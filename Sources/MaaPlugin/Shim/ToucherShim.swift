@@ -31,13 +31,15 @@ final class Toucher {
     static func touchcam(point: CGPoint, phase: UITouch.Phase, tid: inout Int?,
                          actionName _: String, keyName _: String) {
         if phase == .began {
-            if tid != nil {
+            if let existing = tid {
+                MaaPluginDebug.log(String(format: "touch: began ignored, id=%d already active", existing))
                 return
             }
             tid = -1
             keyWindow = currentKeyWindow()
             keyView = keyWindow?.hitTest(point, with: nil)
         } else if tid == nil {
+            MaaPluginDebug.log(String(format: "touch: %@ ignored, no active touch", name(of: phase)))
             return
         }
 
@@ -47,14 +49,29 @@ final class Toucher {
             return
         }
 
-        tid = PTFakeMetaTouchBridge.fakeTouch(id: tid ?? -1,
-                                              point: point,
-                                              phase: phase,
-                                              window: window,
-                                              view: view)
+        let requested = tid ?? -1
+        let result = PTFakeMetaTouchBridge.fakeTouch(id: requested,
+                                                     point: point,
+                                                     phase: phase,
+                                                     window: window,
+                                                     view: view)
+        // `.began` passes -1 and gets the newly allocated id back, so the
+        // assignment is what hands it to MaaTools for the following phases.
+        // A negative result means the point no longer exists (normal release).
+        tid = result >= 0 ? result : nil
 
-        if tid ?? -1 < 0 {
-            tid = nil
+        MaaPluginDebug.log(String(format: "touch: %@ request=%d result=%d at (%.1f, %.1f)",
+                                  name(of: phase), requested, result, point.x, point.y))
+    }
+
+    private static func name(of phase: UITouch.Phase) -> String {
+        switch phase {
+        case .began: return "began"
+        case .moved: return "moved"
+        case .stationary: return "stationary"
+        case .ended: return "ended"
+        case .cancelled: return "cancelled"
+        default: return "phase(\(phase.rawValue))"
         }
     }
 
