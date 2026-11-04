@@ -3,7 +3,7 @@
 //  MaaPlugin
 //
 //  `Toucher.touchcam` with the same signature and phase handling as PlayTools'
-//  Toucher.swift, which is what the vendored Hguandl/MaaTools.swift calls.
+//  Toucher.swift, which is what the vendored Core/MaaTools.swift calls.
 //
 //  PlayTools' implementation also drives its debug overlay and optional touch
 //  logging; neither exists in a plugin, so only the injection path is kept.

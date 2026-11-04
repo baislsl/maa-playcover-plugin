@@ -37,6 +37,7 @@
 		D2000000000000000000000D /* MetalCaptureHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalCaptureHook.h; sourceTree = "<group>"; };
 		D20000000000000000000384 /* MaaPlugin.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = MaaPlugin.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		D20000000000000000000385 /* ScreenCaptureKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScreenCaptureKit.framework; path = System/Library/Frameworks/ScreenCaptureKit.framework; sourceTree = SDKROOT; };
+		D20000000000000000000014 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +74,7 @@
 			children = (
 				D20000000000000000000001 /* MaaPluginEntry.swift */,
 				D30000000000000000000003 /* Shim */,
-				D30000000000000000000004 /* Hguandl */,
+				D30000000000000000000004 /* Core */,
 				D2000000000000000000000B /* PluginBootstrap.m */,
 				D2000000000000000000000C /* MaaPlugin-Bridging-Header.h */,
 			);
@@ -92,7 +93,7 @@
 			path = Shim;
 			sourceTree = "<group>";
 		};
-		D30000000000000000000004 /* Hguandl */ = {
+		D30000000000000000000004 /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				D20000000000000000000007 /* MaaTools.swift */,
@@ -100,8 +101,9 @@
 				D20000000000000000000009 /* ArknightsMetalCapture.swift */,
 				D2000000000000000000000A /* MetalCaptureHook.m */,
 				D2000000000000000000000D /* MetalCaptureHook.h */,
+				D20000000000000000000014 /* README.md */,
 			);
-			path = Hguandl;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		D30000000000000000000005 = {

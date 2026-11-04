@@ -2,8 +2,8 @@
 //  PlaySettingsShim.swift
 //  MaaPlugin
 //
-//  `PlaySettings.shared` as expected by the vendored Hguandl/MaaTools.swift and
-//  Hguandl/ArknightsMetalCapture.swift.
+//  `PlaySettings.shared` as expected by the vendored Core/MaaTools.swift and
+//  Core/ArknightsMetalCapture.swift.
 //
 //  PlayTools reads per-app settings from the exact same file, so layering this
 //  onto the plist keeps the plugin honouring PlayCover's UI without an XPC

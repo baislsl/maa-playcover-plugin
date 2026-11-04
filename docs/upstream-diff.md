@@ -7,11 +7,11 @@ commit `6497f81`（"fix: Avoid ScreenCaptureKit before iOS 18.2"）。
 
 | 文件 | sha256 前缀 | 状态 |
 | --- | --- | --- |
-| `Hguandl/MaaTools.swift` | `bbb0b478a6e929c1`（本仓库） | **一处补丁**，见下 |
-| `Hguandl/MetalCapture.swift` | `71ed3bdc81324f7c` | 与上游逐字节一致 |
-| `Hguandl/ArknightsMetalCapture.swift` | `47df920862eb445f` | 与上游逐字节一致 |
-| `Hguandl/MetalCaptureHook.h` | `f5abb82894367d93` | 与上游逐字节一致 |
-| `Hguandl/MetalCaptureHook.m` | `90e643c8bdcbc79c` | 与上游逐字节一致 |
+| `Core/MaaTools.swift` | `bbb0b478a6e929c1`（本仓库） | **一处补丁**，见下 |
+| `Core/MetalCapture.swift` | `71ed3bdc81324f7c` | 与上游逐字节一致 |
+| `Core/ArknightsMetalCapture.swift` | `47df920862eb445f` | 与上游逐字节一致 |
+| `Core/MetalCaptureHook.h` | `f5abb82894367d93` | 与上游逐字节一致 |
+| `Core/MetalCaptureHook.m` | `90e643c8bdcbc79c` | 与上游逐字节一致 |
 
 可以用 `shasum -a 256` 对照上游仓库确认。
 

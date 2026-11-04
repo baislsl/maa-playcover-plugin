@@ -18,21 +18,20 @@ PlayCover 自带用户自定义插件机制（设置 → 杂项 → 自定义插
 ## 架构
 
 ```
-┌──────────┐   MaaTools v4 (TCP)   ┌─────────────────────────────────────┐
-│  MaaEnd  │ ────────────────────► │ 游戏进程 (Mac Catalyst)              │
-└──────────┘ ◄──────────────────── │                                     │
-                                   │  PlayTools (PlayCover 注入)          │
-                                   │    └─ dlopen Frameworks/UserPlugins/ │
-                                   │         MaaPlugin.dylib              │
-                                   │           ├─ Hguandl/  协议服务端     │
-                                   │           ├─ Shim/     适配层         │
-                                   │           └─ 系统 API: SCK / CG / HID │
-                                   └─────────────────────────────────────┘
+MaaEnd ──TCP (MaaTools v4)──► 游戏进程 (Mac Catalyst)
+                               │
+                               ├─ PlayTools (PlayCover 注入)
+                               │    └─ dlopen Frameworks/UserPlugins/MaaPlugin.dylib
+                               │         ├─ Core/   协议服务端（上游原样）
+                               │         ├─ Shim/   适配层
+                               │         └─ 系统 API: SCK / CGWindowList / PTFakeMetaTouch
+                               │
+                               └─ 本插件不修改游戏二进制与 PlayCover 本体
 ```
 
 | 组成 | 作用 |
 | --- | --- |
-| `Sources/MaaPlugin/Hguandl/` | 原样保留的 MaaTools 协议服务端与 Metal 抓图 |
+| `Sources/MaaPlugin/Core/` | 原样保留的 MaaTools 协议服务端与 Metal 抓图 |
 | `Sources/MaaPlugin/Shim/` | 让上述代码脱离 PlayTools 独立运行的适配层 |
 | `Sources/MaaPlugin/*.m/.swift` | 插件入口（`dlopen` 构造函数 → 启动服务） |
 

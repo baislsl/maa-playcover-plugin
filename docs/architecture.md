@@ -7,7 +7,7 @@ Sources/MaaPlugin/
 ├── MaaPluginEntry.swift        插件入口（constructor 调用 MaaPluginStart）
 ├── PluginBootstrap.m           __attribute__((constructor)) → 主队列 → 启动
 ├── MaaPlugin-Bridging-Header.h 暴露 ObjC 头给 Swift
-├── Hguandl/                    原样保留的上游实现
+├── Core/                       原样保留的上游实现
 │   ├── MaaTools.swift          MaaTools v4 服务端（TCP、协议解析、截图缓冲）
 │   ├── MetalCapture.swift      Metal 帧缓冲池 / 状态机
 │   ├── ArknightsMetalCapture.swift  Metal drawable 抓取（hook 安装）
