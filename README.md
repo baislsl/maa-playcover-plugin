@@ -39,8 +39,8 @@ MaaEnd ──TCP (MaaTools v4)──► 游戏进程 (Mac Catalyst)
 
 - **协议原样复用**：4 个文件与上游逐字节一致，`MaaTools.swift` 仅一处补丁（见
   [docs/upstream-diff.md](docs/upstream-diff.md)）。
-- **截图**：ScreenCaptureKit 窗口滤镜；按窗口内容裁剪标题栏、按内容原生像素取图、单帧 1.5 s 超时并
-  回放上一帧，避免窗口被遮挡时卡死连接。
+- **截图**：ScreenCaptureKit 窗口滤镜；按窗口内容裁剪标题栏、按内容原生像素取图，系统低于 18.2 时
+  退回 `CGWindowListCreateImage`。
 - **尺寸与朝向**：以 PlayCover 配置的窗口尺寸 + 游戏自身 `uiBounds` 对齐 `nativeBounds`，解决
   `inverseScreenValues` 导致的宽高翻转。
 - **触控**：运行时调用注入的 PlayTools `PTFakeMetaTouch`（解析一次并缓存 IMP），不复制实现。

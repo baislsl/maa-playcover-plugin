@@ -34,7 +34,7 @@ launchctl unsetenv MAATOOLS_DEBUG     # 用完关掉
 | `geometry: id=… frame=… uiBounds=… content=…` | 窗口几何变化（窗口移动/重建时出现） |
 | `capture: window=… content=… titleBar=…` | 截图区域与标题栏高度 |
 | `capture: SCK 15 ms -> 2660x1662` | 单帧抓图耗时与尺寸 |
-| `capture: SCK 1500 ms gave up` | 超时，正在回放上一帧 |
+| `capture: CG …` | 走了 CGWindowList 兜底（系统低于 18.2 或 SCK 失败） |
 | `touch: PTFakeMetaTouch found in PlayTools` | 触摸注入可用 |
 
 ## 常见现象

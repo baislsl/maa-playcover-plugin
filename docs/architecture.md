@@ -59,12 +59,11 @@ Sources/MaaPlugin/
    - 缓存 `SCShareableContent` 5 秒，避免每帧枚举；
    - `SCContentFilter(desktopIndependentWindow:)` + `sourceRect`（窗口内容，裁掉标题栏）；
    - 输出尺寸 = 内容原生像素（`content × pointPixelScale`）。**不能让 SCK 输出更大的尺寸**：
-     它不会放大内容，而是把画面钉在左上、其余留黑；
-   - 单帧最多等 1.5 秒。
-2. **CGWindowListCreateImage**：SCK 超时/失败时兜底，同样有 1.5 秒上限（在后台线程执行）。
-3. **上一帧**：两条路都失败时回放最近一次成功的画面，避免连接停摆。
+     它不会放大内容，而是把画面钉在左上、其余留黑。
+2. **CGWindowListCreateImage**：系统低于 18.2（`sckAvailable == false`）或 SCK 抛错时兜底，
+   在后台线程执行。
 
-窗口几何（窗口 id、frame、内容区）每秒最多重新解析一次；窗口移动或重建会重新对齐。
+窗口几何（窗口 id、frame、内容区）每帧重新解析，窗口移动/重建无需额外处理。
 
 ### 尺寸与朝向
 

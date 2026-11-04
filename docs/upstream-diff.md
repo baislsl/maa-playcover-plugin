@@ -59,7 +59,7 @@ shim（见 [architecture.md](architecture.md#尺寸与朝向)），并且**去�
 | 上游符号 | 上游实现 | 本仓库替身 |
 | --- | --- | --- |
 | `PlaySettings.shared` | 读 PlayCover per-app plist | `PlaySettingsShim` 读同一个文件，字段可选 + 环境变量兜底 |
-| `AKInterface.shared` | `AKInterface.bundle`（macOS、AppKit） | `AKInterfaceShim`：Catalyst 没有 AppKit，改用 UIKit + CGWindowList + ScreenCaptureKit |
+| `AKInterface.shared` | `PlayTools.AKInterface`（Swift 加载器）+ `AKInterface.bundle` | `AKInterfaceShim`：加载器没有 `.swiftmodule` 且符号是局部的，改为直接使用 UIKit/CGWindowList/ScreenCaptureKit；bundle 里的 `AKPlugin` 可反射调用，但属未公开 API |
 | `PlayInput.touchQueue` | 串行队列 | `PlayInputShim` 同名队列 |
 | `Toucher.touchcam` | 调 `PTFakeMetaTouch` | `ToucherShim` 保持相同相位语义，运行时查找注入类 |
 | `ArknightsMetalCapture` / `MetalCapture*` | 同仓 | 整份复制 |
@@ -75,5 +75,8 @@ shim（见 [architecture.md](architecture.md#尺寸与朝向)），并且**去�
 | `dlsym("_OBJC_CLASS_$_PTFakeMetaTouch")` | 与现在的 `NSClassFromString` 等价，只是多一层手写符号名 |
 | ObjC 运行时按类名 + 选择器（当前做法） | **惯用且最稳**：`PTFakeMetaTouch` 是 `@interface` 类，解析一次后缓存 IMP，失败只告警一次 |
 
-其余符号本就不该复用：`AKInterface` 是 macOS/AppKit 实现（Catalyst 编译期不可用），`PlaySettings`
+其余符号本就不该复用：`PlayTools.AKInterface` 是纯 Swift 内部类（无 module、局部符号），`PlaySettings`
 本质是读 plist，`PlayInput` 只是一个队列，`Toucher` 是薄封装。
+
+补充：**平台不是障碍**。`AKInterface.bundle` 是 `platform MACOS` 的 AppKit 实现，实测可以被
+Catalyst 进程 `dlopen`；真正的限制是这些接口未公开、也没有版本号。
