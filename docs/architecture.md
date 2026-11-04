@@ -88,17 +88,18 @@ Sources/MaaPlugin/
 
 ## 配置读取
 
-`PlaySettings` 读取 `~/Library/Containers/io.playcover.PlayCover/App Settings/<bundle-id>.plist`，
-与 PlayTools 使用同一份文件：
+插件**不往 PlayCover 的设置里写任何键**：安装 dylib 本身就是开关，其余开关全部读环境变量。
 
-| 键 | 默认 | 说明 |
+| 环境变量 | 默认 | 说明 |
 | --- | --- | --- |
-| `maaTools` | `true` | 是否启动服务 |
-| `maaToolsPort` | `1717` | 监听端口 |
-| `enableMetalCapture` | `false` | 是否安装 Metal hook |
+| `MAATOOLS_ENABLE` | `true` | 是否启动服务 |
+| `MAATOOLS_PORT` | `1717` | 监听端口 |
+| `MAATOOLS_METAL` | `false` | 是否安装 Metal hook |
+| `MAATOOLS_DEBUG` | 关闭 | 是否写调试日志 |
 
-环境变量优先级更高：`MAATOOLS_ENABLE`、`MAATOOLS_PORT`、`MAATOOLS_METAL`、`MAATOOLS_DEBUG`。
-上游 PlayCover 的设置文件没有前两个键，所以装了插件即视为启用。
+唯一从文件读取的是 PlayCover 自己拥有的 `windowWidth`/`windowHeight`
+（`~/Library/Containers/io.playcover.PlayCover/App Settings/<bundle-id>.plist`），用于在启动时判定
+窗口尺寸/朝向；缺失时退回"窗口 frame 稳定 1 秒"的判断。
 
 ## 标题栏
 

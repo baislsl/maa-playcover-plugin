@@ -1,6 +1,6 @@
 # MaaTools v4 协议
 
-TCP，默认端口 `1717`（可由 `maaToolsPort` / `MAATOOLS_PORT` 覆盖）。本节描述的是本插件实际实现的
+TCP，默认端口 `1717`（可由环境变量 `MAATOOLS_PORT` 覆盖）。本节描述的是本插件实际实现的
 语义，与 hguandl/PlayTools 的 `MaaTools.swift` 一致。
 
 ## 握手

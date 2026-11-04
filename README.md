@@ -44,7 +44,7 @@ MaaEnd ──TCP (MaaTools v4)──► 游戏进程 (Mac Catalyst)
 - **尺寸与朝向**：以 PlayCover 配置的窗口尺寸 + 游戏自身 `uiBounds` 对齐 `nativeBounds`，解决
   `inverseScreenValues` 导致的宽高翻转。
 - **触控**：运行时调用注入的 PlayTools `PTFakeMetaTouch`（解析一次并缓存 IMP），不复制实现。
-- **配置**：读取 PlayCover 的 per-app 设置 plist，`MAATOOLS_ENABLE / PORT / METAL` 环境变量可覆盖。
+- **配置**：不改 PlayCover 的设置，开关全部走环境变量（`MAATOOLS_ENABLE / PORT / METAL / DEBUG`，均有默认值）；只从 PlayCover 自己的 plist 读窗口尺寸用于朝向判定。
 - **零侵入**：插件自启动（ObjC constructor），不修改游戏二进制与 PlayCover 本体。
 
 ## 快速开始

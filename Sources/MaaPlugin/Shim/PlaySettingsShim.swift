@@ -5,14 +5,11 @@
 //  `PlaySettings.shared` as expected by the vendored Core/MaaTools.swift and
 //  Core/ArknightsMetalCapture.swift.
 //
-//  PlayTools reads per-app settings from the exact same file, so layering this
-//  onto the plist keeps the plugin honouring PlayCover's UI without an XPC
-//  channel: anything PlayCover (or the MaaTools fork) writes for the app is
-//  visible here.
-//
-//  Upstream PlayCover has no MaaTools page, so every key is optional and the
-//  defaults below apply when the key is absent. Environment variables override
-//  the plist, which makes the plugin usable without touching PlayCover at all.
+//  The plugin never adds keys to PlayCover's settings: installing the dylib is
+//  the opt-in, and every plugin switch is read from the environment so that
+//  nothing depends on modifying PlayCover's plist. The plist is still consulted
+//  for the one key PlayCover itself owns and the plugin genuinely needs — the
+//  configured window size, used to decide the protocol size/orientation.
 //
 
 import Foundation
@@ -58,21 +55,19 @@ final class PlaySettings {
         }
     }
 
-    /// MaaTools switch. The MaaTools fork stores this in the per-app settings;
-    /// upstream PlayCover has no such key, and installing the dylib is already
-    /// an explicit opt-in, so default to enabled.
-    lazy var maaTools: Bool = Self.environmentBool("MAATOOLS_ENABLE")
-        ?? settings["maaTools"] as? Bool
-        ?? true
+    private static func environmentInt(_ name: String) -> Int? {
+        guard let raw = ProcessInfo.processInfo.environment[name] else { return nil }
+        return Int(raw)
+    }
 
-    /// Port the server binds. `MAATOOLS_PORT` wins so the plugin can run
-    /// side-by-side with another MaaTools build without editing settings.
+    /// Whether to start the server. Installing the dylib is already an explicit
+    /// opt-in, so this defaults to on; `MAATOOLS_ENABLE=0` turns it off.
+    lazy var maaTools: Bool = Self.environmentBool("MAATOOLS_ENABLE") ?? true
+
+    /// Port the server binds. `MAATOOLS_PORT` overrides the default so several
+    /// builds can coexist without touching any settings file.
     lazy var maaToolsPort: Int = {
-        if let raw = ProcessInfo.processInfo.environment["MAATOOLS_PORT"],
-           let port = Int(raw), (1 ... 65535).contains(port) {
-            return port
-        }
-        if let port = settings["maaToolsPort"] as? Int, (1 ... 65535).contains(port) {
+        if let port = Self.environmentInt("MAATOOLS_PORT"), (1 ... 65535).contains(port) {
             return port
         }
         return 1717
@@ -93,11 +88,8 @@ final class PlaySettings {
         return CGSize(width: width, height: height)
     }()
 
-    /// Metal drawable capture switch. Kept opt-in exactly like the fork's
-    /// `AppSettingsData.enableMetalCapture` default; note that
+    /// Metal drawable capture switch, off unless `MAATOOLS_METAL=1`. Note that
     /// `ArknightsMetalCapture` only installs hooks for the bundle identifiers
     /// listed there, which is Arknights only in the vendored revision.
-    lazy var enableMetalCapture: Bool = Self.environmentBool("MAATOOLS_METAL")
-        ?? settings["enableMetalCapture"] as? Bool
-        ?? false
+    lazy var enableMetalCapture: Bool = Self.environmentBool("MAATOOLS_METAL") ?? false
 }

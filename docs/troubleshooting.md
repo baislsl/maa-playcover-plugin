@@ -80,7 +80,7 @@ launchctl unsetenv MAATOOLS_DEBUG     # 用完关掉
 
 1. 标题栏是否出现 `[localhost:<port>]`；没有则服务未启动或端口被占；
 2. `lsof -nP -iTCP -sTCP:LISTEN | grep -i endfield` 查实际端口；
-3. 端口可通过 `MAATOOLS_PORT` 或 PlayCover 设置里的 `maaToolsPort` 修改。
+3. 端口可通过环境变量 `MAATOOLS_PORT` 修改（插件不读取 PlayCover 设置里的端口）。
 
 ## 收集信息
 
