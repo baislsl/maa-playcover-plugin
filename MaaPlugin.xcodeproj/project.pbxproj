@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D10000000000000000000021 /* MaaAppKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000021 /* MaaAppKit.m */; };
 		D10000000000000000000001 /* MaaPluginEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000001 /* MaaPluginEntry.swift */; };
 		D10000000000000000000002 /* AKInterfaceShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000002 /* AKInterfaceShim.swift */; };
 		D10000000000000000000003 /* PlaySettingsShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000000000000000000003 /* PlaySettingsShim.swift */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D20000000000000000000021 /* MaaAppKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaaAppKit.m; sourceTree = "<group>"; };
+		D20000000000000000000022 /* MaaAppKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaaAppKit.h; sourceTree = "<group>"; };
 		D20000000000000000000001 /* MaaPluginEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaaPluginEntry.swift; sourceTree = "<group>"; };
 		D20000000000000000000002 /* AKInterfaceShim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKInterfaceShim.swift; sourceTree = "<group>"; };
 		D20000000000000000000003 /* PlaySettingsShim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySettingsShim.swift; sourceTree = "<group>"; };
@@ -73,6 +76,8 @@
 			isa = PBXGroup;
 			children = (
 				D20000000000000000000001 /* MaaPluginEntry.swift */,
+				D20000000000000000000021 /* MaaAppKit.m */,
+				D20000000000000000000022 /* MaaAppKit.h */,
 				D30000000000000000000003 /* Shim */,
 				D30000000000000000000004 /* Core */,
 				D2000000000000000000000B /* PluginBootstrap.m */,
@@ -170,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D10000000000000000000001 /* MaaPluginEntry.swift in Sources */,
+				D10000000000000000000021 /* MaaAppKit.m in Sources */,
 				D10000000000000000000002 /* AKInterfaceShim.swift in Sources */,
 				D10000000000000000000003 /* PlaySettingsShim.swift in Sources */,
 				D10000000000000000000004 /* PlayInputShim.swift in Sources */,
@@ -229,6 +235,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACCATALYST_DEPLOYMENT_TARGET = 15.0;
 				MACH_O_TYPE = mh_dylib;
+				OTHER_LDFLAGS = "-Wl,-undefined,dynamic_lookup";
 				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.MaaPlugin;
 				PRODUCT_NAME = MaaPlugin;
 				SKIP_INSTALL = YES;
@@ -255,6 +262,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACCATALYST_DEPLOYMENT_TARGET = 15.0;
 				MACH_O_TYPE = mh_dylib;
+				OTHER_LDFLAGS = "-Wl,-undefined,dynamic_lookup";
 				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.MaaPlugin;
 				PRODUCT_NAME = MaaPlugin;
 				SKIP_INSTALL = YES;

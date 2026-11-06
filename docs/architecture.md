@@ -7,6 +7,7 @@ Sources/MaaPlugin/
 ├── MaaPluginEntry.swift        插件入口（constructor 调用 MaaPluginStart）
 ├── PluginBootstrap.m           __attribute__((constructor)) → 主队列 → 启动
 ├── MaaPlugin-Bridging-Header.h 暴露 ObjC 头给 Swift
+├── MaaAppKit.h/.m              AppKit 桥（标题/退出），符号运行时解析
 ├── Core/                       原样保留的上游实现
 │   ├── MaaTools.swift          MaaTools v4 服务端（TCP、协议解析、截图缓冲）
 │   ├── MetalCapture.swift      Metal 帧缓冲池 / 状态机
@@ -100,10 +101,17 @@ Sources/MaaPlugin/
 （`~/Library/Containers/io.playcover.PlayCover/App Settings/<bundle-id>.plist`），用于在启动时判定
 窗口尺寸/朝向；缺失时退回"窗口 frame 稳定 1 秒"的判断。
 
-## 标题栏
+## 标题栏与退出
 
-`UIWindowScene.title` 对 PlayCover 的游戏窗口不生效，插件通过 ObjC runtime 取
-`NSApplication.sharedApplication.windows.first` 并 KVC 写入 `title`，写入后再观察 30 秒，被改回就重写。
+`UIWindowScene.title` 对 PlayCover 的游戏窗口不生效。Catalyst 没有 AppKit SDK，但 AppKit 一定在进程里，
+所以 `MaaAppKit.m` 只引入 Foundation、局部声明 `NSApplication`/`NSWindow`，对外暴露三个 C 函数
+（读/写标题、退出）。Swift 侧直接调函数，没有类名、selector 或 KVC 查找；符号在运行时绑定
+（工程设置 `-Wl,-undefined,dynamic_lookup`）。
+
+退出不用上游的 `NSApplication.terminate:`（AppKit 桥里也不提供这个入口）：采样栈显示它会阻塞在
+`-[NSApplication _shouldTerminate]` → `nextEventMatchingMask:` → `RunCurrentEventLoopInMode`，
+等待一个 Catalyst（run loop 归 UIKit 管）永远不会发出的终止回复——表现为窗口消失、进程还在且无响应。
+`exit()` 也会卡在运行时清理上，所以直接 `_exit()` 结束进程。
 
 ## 线程模型
 

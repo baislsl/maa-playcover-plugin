@@ -58,8 +58,7 @@ cd MaaPlugin
 2. 重启游戏，标题栏出现 `[localhost:1717]`；
 3. MaaEnd 连接设置里选 `PlayCover`，地址填标题栏的地址 `localhost:1717`。
 
-也可以用 Xcode 打开 `MaaPlugin.xcodeproj` 直接构建；推送到 `main` 时 GitHub Actions 会自动构建并
-上传 `MaaPlugin.dylib` artifact。详见 [docs/build.md](docs/build.md)。
+也可以用 Xcode 打开 `MaaPlugin.xcodeproj` 直接构建，详见 [docs/build.md](docs/build.md)。
 
 ## 文档
 

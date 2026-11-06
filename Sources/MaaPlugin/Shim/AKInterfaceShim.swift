@@ -239,13 +239,13 @@ final class AKInterface {
     /// window yet.
     var windowTitle: String? {
         get {
-            if let title = Self.appKitWindowTitle(), !title.isEmpty {
+            if let title = MaaAppKitWindowTitle(), !title.isEmpty {
                 return title
             }
             return Self.displayName
         }
         set {
-            Self.appKitWindow()?.setValue(newValue ?? "", forKey: "title")
+            MaaAppKitSetWindowTitle(newValue ?? "")
         }
     }
 
@@ -258,22 +258,6 @@ final class AKInterface {
 
     /// The app's `NSWindow`, resolved through the ObjC runtime because AppKit is
     /// unavailable to Mac Catalyst code at compile time.
-    private static func appKitWindow() -> NSObject? {
-        guard let cls = NSClassFromString("NSApplication") else { return nil }
-        let selector = NSSelectorFromString("sharedApplication")
-        guard let method = class_getClassMethod(cls, selector) else { return nil }
-        typealias Shared = @convention(c) (AnyObject, Selector) -> AnyObject
-        let application = unsafeBitCast(method_getImplementation(method), to: Shared.self)(cls, selector)
-        guard let windows = (application as? NSObject)?.value(forKey: "windows") as? [NSObject] else {
-            return nil
-        }
-        return windows.first
-    }
-
-    private static func appKitWindowTitle() -> String? {
-        appKitWindow()?.value(forKey: "title") as? String
-    }
-
     // MARK: - Capture
 
     nonisolated private func cgWindowImage(_ geometry: (id: CGWindowID, frame: CGRect, content: CGRect)) -> CGImage? {
@@ -377,7 +361,16 @@ final class AKInterface {
 
     // MARK: - Lifecycle
 
+    /// `NSApplication.terminate:` cannot be used here. A sampled stack of the
+    /// live process shows it blocking in
+    /// `-[NSApplication _shouldTerminate]` → `nextEventMatchingMask:` →
+    /// `RunCurrentEventLoopInMode`, i.e. a modal AppKit event wait for a
+    /// termination reply that a Catalyst app (whose run loop belongs to UIKit)
+    /// never sends — the window disappears and the process stays "not
+    /// responding". `exit()` is no better: its runtime teardown can wedge
+    /// against the render/audio threads. Exit the process directly instead.
     func terminateApplication() {
-        exit(EXIT_SUCCESS)
+        MaaPluginDebug.log("terminate: _exit")
+        _exit(EXIT_SUCCESS)
     }
 }
